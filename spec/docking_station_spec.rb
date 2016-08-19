@@ -31,8 +31,7 @@ end
   end
 
   describe 'initialization' do
-    bike = Bike.new
-    subject { DockingStation.new }
+    #subject { DockingStation.new }
     let(:bike) { Bike.new }
     it 'defaults capacity' do
       described_class::DEFAULT_CAPACITY.times do
@@ -41,4 +40,12 @@ end
       expect{ subject.dock(bike) }.to raise_error 'Docking Station full'
     end
   end
+
+  # describe 'Does the bike release when broken?' do
+  #   it 'does not release a broken bike' do
+  #     subject.dock(Bike.new.false)
+  #     bike = subject.release_bike
+  #     expect{ subject.}
+  #
+  # end
 end
