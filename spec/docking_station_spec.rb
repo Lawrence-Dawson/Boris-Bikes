@@ -54,4 +54,17 @@ end
     subject.dock(bike)
     expect{ subject.release_bike }.to raise_error 'Error, cannot release a broken bike.'
   end
+
+  it 'working bikes can be docked at docking station' do
+    bike = Bike.new
+    subject.dock(bike)
+    expect(subject.instance_variable_get(:@bikes)).to include bike
+  end
+
+  it 'broken bikes can be docked at docking station' do
+    bike = Bike.new
+    subject.report_broken(bike)
+    subject.dock(bike)
+    expect(subject.instance_variable_get(:@bikes)).to include bike
+  end
 end
