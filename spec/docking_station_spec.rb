@@ -5,10 +5,10 @@ describe DockingStation do
 
   describe '#release_bike' do
     it 'releases working bikes' do
-    bike = Bike.new
+    bike = double(:bike, :working => true)
     subject.dock(bike)
-    subject.release_bike
-    expect(bike.working).to eq true
+    #allow(bike).to receive(:working).and_return(true)
+    expect(subject.release_bike).to eq bike
   end
 end
 
@@ -20,8 +20,8 @@ end
 
   describe '#dock' do
   it 'raises an error when the dock is full' do
-    subject.capacity.times { subject.dock(Bike.new) }
-    expect { subject.dock(Bike.new) }.to raise_error 'Docking Station full'
+    subject.capacity.times { subject.dock(double(:bike)) }
+    expect { subject.dock(double(:bike)) }.to raise_error 'Docking Station full'
     end
   end
 
@@ -32,7 +32,7 @@ end
   end
 
   describe 'initialization' do
-    let(:bike) { Bike.new }
+    let(:bike) { double(:bike) }
     it 'defaults capacity' do
       described_class::DEFAULT_CAPACITY.times do
         subject.dock(bike)
@@ -42,27 +42,24 @@ end
   end
 
   it 'reporting a bike broken to the docking station' do
-    bike = Bike.new
-    subject.report_broken(bike)
-    expect(bike.working).to eq false
+    bike = double(:bike, :report_broken => false)
+    expect(subject.dock(bike)).to include bike
   end
 
   it 'does not release a broken bike' do
-    bike = Bike.new
-    subject.report_broken(bike)
+    bike = double(:bike, :working => false)
     subject.dock(bike)
     expect{ subject.release_bike }.to raise_error 'Error, cannot release a broken bike.'
   end
 
   it 'working bikes can be docked at docking station' do
-    bike = Bike.new
+    bike = double(:bike)
     subject.dock(bike)
     expect(subject.instance_variable_get(:@bikes)).to include bike
   end
 
   it 'broken bikes can be docked at docking station' do
-    bike = Bike.new
-    subject.report_broken(bike)
+    bike = double(:bike, :working => false)
     subject.dock(bike)
     expect(subject.instance_variable_get(:@bikes)).to include bike
   end
