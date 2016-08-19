@@ -32,7 +32,6 @@ end
   end
 
   describe 'initialization' do
-    #subject { DockingStation.new }
     let(:bike) { Bike.new }
     it 'defaults capacity' do
       described_class::DEFAULT_CAPACITY.times do
