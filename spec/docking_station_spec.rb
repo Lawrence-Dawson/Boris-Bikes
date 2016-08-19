@@ -46,4 +46,11 @@ end
     subject.report_broken(bike)
     expect(bike.working).to eq false
   end
+
+  it 'does not release a broken bike' do
+    bike = Bike.new
+    subject.report_broken(bike)
+    subject.dock(bike)
+    expect{ subject.release_bike }.to raise_error 'Error, cannot release a broken bike'
+  end
 end
