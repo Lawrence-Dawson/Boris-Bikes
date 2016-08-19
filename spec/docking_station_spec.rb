@@ -41,11 +41,9 @@ end
     end
   end
 
-  # describe 'Does the bike release when broken?' do
-  #   it 'does not release a broken bike' do
-  #     subject.dock(Bike.new.false)
-  #     bike = subject.release_bike
-  #     expect{ subject.}
-  #
-  # end
+  it 'reporting a bike broken to the docking station' do
+    bike = Bike.new
+    subject.report_broken(bike)
+    expect(bike.working).to eq false
+  end
 end

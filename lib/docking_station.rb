@@ -21,6 +21,9 @@ class DockingStation
     bikes << bike
   end
 
+  def report_broken(bike)
+    bike.working = false
+  end
 
   private
 
