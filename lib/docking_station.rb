@@ -15,12 +15,11 @@ class DockingStation
     fail 'No bikes available' if bikes.empty?
 
     bikes.each do | bike |
-        if bike.working == false
-          fail 'Error, cannot release a broken bike.'
-        else
-          bikes.pop
-        end
+      if bike.working == true
+        return bikes.delete(bike)
       end
+    end
+    fail 'Error, cannot release a broken bike.'
   end
 
   def dock(bike)
