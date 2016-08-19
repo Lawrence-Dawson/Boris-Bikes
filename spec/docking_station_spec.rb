@@ -5,9 +5,10 @@ describe DockingStation do
 
   describe '#release_bike' do
     it 'releases working bikes' do
-    subject.dock(Bike.new)
-    bike = subject.release_bike
-    expect(bike).to be_working
+    bike = Bike.new
+    subject.dock(bike)
+    subject.release_bike
+    expect(bike.working).to eq true
   end
 end
 
@@ -51,6 +52,6 @@ end
     bike = Bike.new
     subject.report_broken(bike)
     subject.dock(bike)
-    expect{ subject.release_bike }.to raise_error 'Error, cannot release a broken bike'
+    expect{ subject.release_bike }.to raise_error 'Error, cannot release a broken bike.'
   end
 end
